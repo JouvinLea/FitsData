@@ -16,6 +16,8 @@ import os
 Commande a lancer pour pouvoir donner des arguments au scripts
 """
 #./Interpolation_listrun.py '/Users/jouvin/Desktop/these/FITS_DATA/HAP-FR/Prod15_4_stereo/elm_north_stereo_Prod15_5' 'elm_stereo' 'Prod15_5'
+#./Interpolation_listrun.py '/Users/jouvin/Desktop/these/FITS_DATA/HAP-FR/Prod15_4_stereo/elm_north_stereo_Prod15_5_thsq64' 'elm_stereo' 'Prod15_5_thsq64'
+#./Interpolation_listrun.py '/Users/jouvin/Desktop/these/FITS_DATA/HAP-FR/Prod15_4_stereo/elm_north_stereo_Prod15_5' 'elm_stereo' 'Prod15_5'
 
 
 
@@ -129,8 +131,8 @@ PathListRun = sys.argv[1]
 #ListRunDirectory = glob(PathListRun+'/run*.fits')
 #RunNumber = [file.split('/')[-1][5:11] for file in ListRunDirectory]
 #RunNumber = np.loadtxt("runlist.list")
-RunNumber = np.loadtxt("Crab_test.list",ndmin=2)
-
+#RunNumber = np.loadtxt("Crab_test.list",ndmin=2)
+RunNumber = np.loadtxt("list_20runs.list",ndmin=2)
 #Load les info sur les MCs depuis la table d'IRF ou est stocke pour toutes les nergies, zenith,offset et efficacite des MCs la valeur des la surface efficiace, du biais et sigma pour la resolution et du s1, s2, s3, A2, A3 de la tripplegauss utilisee pour fitter la psf
 PathTableIRF=os.path.expandvars('$HESSCONFIG')
 PathTablePSF=os.path.expandvars('$HESSCONFIG')
@@ -266,20 +268,20 @@ for nrun in RunNumber[:,0]:
 
                     PSFA3Run[ioff, iEMC] = interpolate.griddata(points, PSFA3[iEMC, ioff, ind_zen, ind_eff], (EffRun,np.cos(ZenRun * math.pi / 180)), method='linear')
                     if np.isnan(PSFA3Run[ioff, iEMC]):
-                        PSFS1Run[ioff, iEMC] = interpolate.griddata(points, PSFA3[iEMC, ioff, ind_zen, ind_eff], (EffRun,np.cos(ZenRun * math.pi / 180)), method='nearest')
-
-                else:
-                    PSFS1Run[ioff, iEMC] = -1
-                    PSFS2Run[ioff, iEMC] = -1
-                    PSFS3Run[ioff, iEMC] = -1
-                    PSFA2Run[ioff, iEMC] = -1
-                    PSFA3Run[ioff, iEMC] = -1
-            else:
-                PSFS1Run[ioff, iEMC] = -1
-                PSFS2Run[ioff, iEMC] = -1
-                PSFS3Run[ioff, iEMC] = -1
-                PSFA2Run[ioff, iEMC] = -1
-                PSFA3Run[ioff, iEMC] = -1
+                        PSFA3Run[ioff, iEMC] = interpolate.griddata(points, PSFA3[iEMC, ioff, ind_zen, ind_eff], (EffRun,np.cos(ZenRun * math.pi / 180)), method='nearest')
+                
+#                else:
+#                    PSFS1Run[ioff, iEMC] = -1
+#                    PSFS2Run[ioff, iEMC] = -1
+#                    PSFS3Run[ioff, iEMC] = -1
+#                    PSFA2Run[ioff, iEMC] = -1
+#                    PSFA3Run[ioff, iEMC] = -1
+#            else:
+#                PSFS1Run[ioff, iEMC] = -1
+#                PSFS2Run[ioff, iEMC] = -1
+#                PSFS3Run[ioff, iEMC] = -1
+#                PSFA2Run[ioff, iEMC] = -1
+#                PSFA3Run[ioff, iEMC] = -1
 
                        
     
