@@ -147,7 +147,7 @@ if __name__ == '__main__':
                             os.makedirs(outdir2)
                         except Exception:
                             pass
-                        import IPython; IPython.embed()
+                        #import IPython; IPython.embed()
                         obstable=Table.read(indir+"/obs-index.fits.gz")
                         obstable["LIVETIME"]=livetime.to("s").value
                         obstable["ONTIME"]=livetime.to("s").value
